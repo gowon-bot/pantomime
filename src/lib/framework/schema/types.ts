@@ -35,8 +35,6 @@ export abstract class BasePantomimeType<T = any> {
     property: PantomimeSchemaProperty,
     value: any
   ): boolean {
-    console.log("validating", value, " as ", property);
-
     return testSchemaProperty(property, value);
   }
 }

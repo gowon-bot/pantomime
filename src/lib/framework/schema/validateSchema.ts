@@ -18,8 +18,6 @@ export function validateSchema(schema: PantomimeSchema, params: any): void {
 }
 
 export function testSchema(schema: PantomimeSchema, params: any): boolean {
-  console.log("Matching ", schema, " against ", params);
-
   if (typeof params === "object") {
     for (const [name, property] of Object.entries(schema)) {
       if (!testSchemaProperty(property, params[name])) {

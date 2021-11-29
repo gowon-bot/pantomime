@@ -1,5 +1,5 @@
-import fetch from "node-fetch";
 import sharp, { Color, RGBA } from "sharp";
+import { ImageCache } from "../framework/cache/ImageCache";
 import { ArrayTiler } from "../helpers/Tiler";
 import {
   ImageInput,
@@ -9,6 +9,8 @@ import {
 } from "./inputs";
 
 export abstract class ImageGenerator {
+  protected cache = new ImageCache();
+
   protected readonly defaultBackground: RGBA = {
     r: 0,
     g: 0,
@@ -32,11 +34,7 @@ export abstract class ImageGenerator {
     if (imageInputIsFilepath(input)) {
       return sharp(input.path);
     } else if (imageInputIsURL(input)) {
-      const image = await fetch(input.url);
-
-      const buffer = Buffer.from(await image.arrayBuffer());
-
-      return sharp(buffer);
+      return await this.cache.getImageFromURL(input.url);
     }
 
     return this.blankCanvas(

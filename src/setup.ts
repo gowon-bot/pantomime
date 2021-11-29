@@ -1,5 +1,6 @@
 import chalk from "chalk";
 import express, { json } from "express";
+import { ensureCacheDirectoryExists } from "./lib/framework/cache/ImageCache";
 import { createRoutes } from "./lib/framework/routing";
 import { globalRoutes } from "./routes";
 
@@ -15,13 +16,17 @@ const titleScreen = chalk.blue`
 ==============================================================================================
 `;
 
-export function setup() {
-  const port = 3002;
+export async function setup() {
+  require("dotenv").config();
+
+  const port = process.env.PORT || 3000;
   const app = express();
 
   app.use(json());
 
   console.log(titleScreen);
+
+  await ensureCacheDirectoryExists(process.env.IMAGE_CACHE_DIR!);
 
   createRoutes(app, globalRoutes);
 

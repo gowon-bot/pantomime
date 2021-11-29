@@ -1,3 +1,5 @@
 node_modules/
 dist/
 yarn.lock
+cache/images
+.DS_STORE
