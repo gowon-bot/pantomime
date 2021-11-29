@@ -1,3 +1,4 @@
+import chalk from "chalk";
 import { Express, Response, Request } from "express";
 import { PantomimeSchema } from "./schema/types";
 import { validateSchema } from "./schema/validateSchema";
@@ -57,7 +58,10 @@ function createRouteForMethod(
   routeData: RouteData
 ): void {
   console.log(
-    `Creating ${method} route ${combineRouteElements(namespace, path)}`
+    chalk`Creating {green ${method}} route {grey ${combineRouteElements(
+      namespace,
+      path
+    )}}`
   );
 
   const methodFunction = method === "GET" ? app.get : app.post;
