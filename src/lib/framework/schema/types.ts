@@ -54,6 +54,12 @@ export namespace PantomimeTypes {
     return new _Union(types);
   }
 
+  export function optional(
+    ...types: Array<PantomimeType | PantomimeType[] | PantomimeSchema>
+  ) {
+    return union(Undefined, ...types);
+  }
+
   export function isUnion(
     property: PantomimeSchemaProperty | _Union
   ): property is _Union {
@@ -99,7 +105,7 @@ export namespace PantomimeTypes {
   }
 
   export class ImageInput extends BasePantomimeType<ImageInput> {
-    properties = {
+    override properties = {
       url: String,
     };
 

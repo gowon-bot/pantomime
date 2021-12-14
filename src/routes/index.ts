@@ -9,7 +9,7 @@ export const globalRoutes: Routes = {
 
   endpoints: {
     "GET ping": {
-      callback: testController.test,
+      callback: testController.ping,
     },
   },
 

@@ -12,7 +12,7 @@ export const chartRoutes: Routes = {
       callback: chartController.create.bind(chartController),
       schema: {
         urls: [PantomimeTypes.ImageInput],
-        size: PantomimeTypes.SizeData,
+        size: PantomimeTypes.optional(PantomimeTypes.SizeData),
       },
     },
   },

@@ -1,3 +1,4 @@
+import { PantomimeHTTPError } from "../error";
 import {
   isSchema,
   PantomimeSchema,
@@ -5,11 +6,11 @@ import {
   PantomimeTypes,
 } from "./types";
 
-class InvalidParamsError extends Error {
-  name = "InvalidParamsError";
+class InvalidParamsError extends PantomimeHTTPError {
+  override name = "InvalidParamsError";
 
   constructor() {
-    super("The parameters you have provided are invalid!");
+    super("The parameters you have provided are invalid!", 400);
   }
 }
 

@@ -3,6 +3,8 @@ import express, { json } from "express";
 import { ensureCacheDirectoryExists } from "./lib/framework/cache/ImageCache";
 import { createRoutes } from "./lib/framework/routing";
 import { globalRoutes } from "./routes";
+import morgan from "morgan";
+import { expressErrorHandler } from "./lib/framework/error";
 
 const titleScreen = chalk.blue`
 8888888b.                   888                          d8b                        
@@ -23,12 +25,15 @@ export async function setup() {
   const app = express();
 
   app.use(json());
+  app.use(morgan("common"));
 
   console.log(titleScreen);
 
   await ensureCacheDirectoryExists(process.env.IMAGE_CACHE_DIR!);
 
   createRoutes(app, globalRoutes);
+
+  app.use(expressErrorHandler);
 
   app.listen(port, () => {
     console.log(chalk`\nServer started at {magenta http://localhost:${port}}`);
