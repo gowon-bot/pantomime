@@ -1,5 +1,3 @@
-import e from "express";
-
 export interface TileInput {
   rows?: number;
   columns?: number;
@@ -9,8 +7,8 @@ export interface TileInput {
 
 export type TiledArray<T> = T[][];
 
-export class ArrayTiler<T> {
-  tile(array: T[], input: TileInput = {}): TiledArray<T> {
+export class ArrayTiler {
+  tile<T>(array: T[], input: TileInput = {}): TiledArray<T> {
     if (input.rows && input.columns) {
       return this.tileWithRowsAndColumns(array, input);
     } else if (input.rows) {
@@ -22,7 +20,7 @@ export class ArrayTiler<T> {
     return this.tileAutomatically(array, input);
   }
 
-  private tileAutomatically(array: T[], input: TileInput): TiledArray<T> {
+  private tileAutomatically<T>(array: T[], input: TileInput): TiledArray<T> {
     const square = Math.ceil(Math.sqrt(array.length));
 
     return this.tileWithRowsAndColumns(array, {
@@ -32,19 +30,22 @@ export class ArrayTiler<T> {
     });
   }
 
-  private tileWithRows(array: T[], input: TileInput): TiledArray<T> {
+  private tileWithRows<T>(array: T[], input: TileInput): TiledArray<T> {
     const columns = Math.ceil(array.length / input.rows!);
 
     return this.tileWithRowsAndColumns(array, { ...input, columns });
   }
 
-  private tileWithColumns(array: T[], input: TileInput): TiledArray<T> {
+  private tileWithColumns<T>(array: T[], input: TileInput): TiledArray<T> {
     const rows = Math.ceil(array.length / input.columns!);
 
     return this.tileWithRowsAndColumns(array, { ...input, rows });
   }
 
-  private tileWithRowsAndColumns(array: T[], input: TileInput): TiledArray<T> {
+  private tileWithRowsAndColumns<T>(
+    array: T[],
+    input: TileInput
+  ): TiledArray<T> {
     const tiledArray: TiledArray<T> = [];
 
     for (let row = 0; row < input.rows!; row++) {

@@ -15,5 +15,12 @@ export const chartRoutes: Routes = {
         size: PantomimeTypes.optional(PantomimeTypes.SizeData),
       },
     },
+    "POST albums/create": {
+      callback: chartController.createWithTitles.bind(chartController),
+      schema: {
+        albums: [PantomimeTypes.AlbumInput],
+        size: PantomimeTypes.optional(PantomimeTypes.SizeData),
+      },
+    },
   },
 };

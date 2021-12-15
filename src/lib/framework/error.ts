@@ -22,8 +22,6 @@ export function expressErrorHandler(
   res: Response,
   next: NextFunction
 ) {
-  console.log("Express sucks");
-
   if (res.headersSent) return next(err);
 
   if (err instanceof PantomimeHTTPError) {

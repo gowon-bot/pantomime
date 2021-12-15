@@ -114,6 +114,20 @@ export namespace PantomimeTypes {
     }
   }
 
+  export class AlbumInput extends BasePantomimeType<AlbumInput> {
+    override properties = {
+      image: ImageInput,
+      metadata: optional({
+        artist: optional(String),
+        album: optional(String),
+      }),
+    };
+
+    validate(value: any): boolean {
+      return this.validateProperty(this.properties, value);
+    }
+  }
+
   export const all = {
     Boolean: new Boolean(),
     ImageInput: new ImageInput(),
@@ -121,6 +135,7 @@ export namespace PantomimeTypes {
     SizeData: new SizeData(),
     String: new String(),
     Undefined: new Undefined(),
+    AlbumInput: new AlbumInput(),
   };
 
   export type TypeName = keyof typeof all;
